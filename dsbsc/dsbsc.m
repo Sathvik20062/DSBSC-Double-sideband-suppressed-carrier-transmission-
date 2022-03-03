@@ -1,0 +1,24 @@
+clc;
+clear all;
+close all;
+t = 0:0.001:1;
+fm = input("Enter the message signal frequency: ");
+fc = input("Enter the carrier wave frquency: ");
+m = (1/2*sin(2*pi*fm*t));
+subplot(6,1,1);
+plot(m);
+title("Message signal");
+c = cos(2*pi*fc*t);
+subplot(6,1,2);
+plot(c,'g');
+title("Carrier wave");
+DSBSC = c.*m;
+subplot(6,1,3);
+plot(DSBSC,'r');
+title("DSB-SC signal");
+s1 = DSBSC.*c;
+[b,a] = butter(5,0.1);
+s2 = filter(b,a,s1);
+subplot(6,1,4);
+plot(s2);
+title("Demodulation of DSB-SC")
